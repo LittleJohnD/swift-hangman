@@ -20,7 +20,7 @@ class HangmanGame {
     
     // All guesses made by the player
     // Initially an empty array of characters
-    var allGuesses = Character[]()
+    var allGuesses:([Character]) = ([Character])()
     
     // The word input as the answer
     // Length is countElements(answer)
@@ -39,7 +39,7 @@ class HangmanGame {
     
     // Prints 30 lines to clear the screen
     func clearScreen() {
-        for i in 1..30 {
+        for i in 1...30 {
             println()
         }
     }
@@ -59,9 +59,9 @@ class HangmanGame {
                     }
                 }
                 if charGuessed {
-                    rightGuesses += char + " "
+                    rightGuesses.append(char as Character)
                 } else {
-                    rightGuesses += "_ "
+                    rightGuesses.append("_" as Character)
                 }
             }
         }
@@ -74,7 +74,7 @@ class HangmanGame {
             println("nothing")
         } else {
             for guess in allGuesses {
-                print(guess + " ")
+                print(String(guess) + " ")
             }
             println()
         }
@@ -94,7 +94,7 @@ class HangmanGame {
         var invalidGuess = true
         println("What is your guess? ")
         while invalidGuess {
-            guess = Character(input().uppercaseString.substringToIndex(1))
+            guess = Character(input().uppercaseString.substringToIndex(advance(input().startIndex, 1)))
             invalidGuess = false
             if (guess == " " || guess == "\n") {
                 invalidGuess = true
@@ -188,6 +188,7 @@ class HangmanGame {
         print("--------------   ")
         if (numberOfWrongGuesses == 6) {
             println("Game Over")
+            println("Answer was: " + answer)
         } else if (inProgress == false) {
             println("You Win!")
         }
